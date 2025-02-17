@@ -19,6 +19,26 @@ const db = mysql.createConnection(
 )
 app.get("/", (req, res) => {
     res.send("szerver működik!")
+}
+
+)
+app.get("/v", (req, res) => {
+
+    const sql ="SELECT * FROM versenyzok "
+    db.query(sql, (err, result) => 
+        {
+            if (err) return res.json(err);
+            return res.json(result);
+        }
+)
+}
+)
+app.get("/v6", (req, res) =>{
+    const sql ="SELECT * FROM teliolimpia.versenyzok where ID = 6;" 
+        {
+            if (err) return res.json(err);
+            return res.json(result);
+        }
 })
 
 //a szerver futásának ellenörzése
