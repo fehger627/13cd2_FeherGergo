@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const bodyparser = require("body-parser");
 const { request } = require("http");
+const { error } = require("console");
 app.use(cors());
 app.use(bodyparser.json());
 
@@ -34,12 +35,29 @@ app.get("/v", (req, res) => {
 }
 )
 app.get("/v6", (req, res) =>{
+
     const sql ="SELECT * FROM teliolimpia.versenyzok where ID = 6;" 
+    db.query(sql, (err, result) =>
         {
             if (err) return res.json(err);
             return res.json(result);
         }
+    )
 })
+app.post("/vuj", (req, res) =>{
+    const sql ="INSERT INTO 'versenyzok' ('ID', 'versenyzok') VALUES (?, ?)";
+    const vakues = [req.body.ID, req.body.versenyzo];
+    db.query(sql, (err, result) =>
+        {
+            if (err) return res.status(500).json({error: "hibás adatbázis művelet!"});
+            return res.json(result);
+        }
+    )
+}
+)
+
+
+
 
 //a szerver futásának ellenörzése
 
